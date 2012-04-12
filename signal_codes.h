@@ -397,7 +397,7 @@ int MicrosoftLeftArrow[] = {
 // Right arrow
 int MicrosoftRightArrow[] = {
 // ON, OFF (in 10's of microseconds)
-	264, 86,
+	262, 86,
 	44, 42,
 	44, 42,
 	46, 84,
@@ -421,7 +421,7 @@ int MicrosoftRightArrow[] = {
 	44, 42,
 	44, 44,
 	42, 44,
-	84, 90,
+	84, 84,
 	44, 44,
 	42, 42,
 	44, 42,
@@ -429,7 +429,7 @@ int MicrosoftRightArrow[] = {
 	44, 42,
 	44, 44,
 	44, 42,
-	84, 258,
+	84, 210,
 	260, 0};
 
 

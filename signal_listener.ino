@@ -72,7 +72,10 @@ int listenForIR(uint16_t *input_array, int array_size) {
   }
 }
 
-// Compares two signals and determines equality value
+// Compares two signals and determines if they match. The
+// incoming signal is compared in a "sliding" method; if
+// the signal and target don't match exactly, the front of the signal
+// is consumed and match is re-tried.
 // Args:
 //   signal: The incoming signal, as a sequence of OFF-ON pulses.
 //    THe first OFF is ignored.
@@ -81,14 +84,19 @@ int listenForIR(uint16_t *input_array, int array_size) {
 // Returns:
 //   true if the signal matches, false otherwise.
 bool CompareSignals(uint16_t *signal, int signal_length, int *target) {
-  for (int counter = 0; counter < signal_length; ++counter) {
-    if (target[counter]==0) {
-      return true;
-    }
-    int signal_code = signal[counter+1] * RESOLUTION / 10;
-    if (abs(signal_code - target[counter]) > 
-      (signal_code * FUZZINESS / 100)) {
-      return false;
+  int counter = 0;
+  while (counter < signal_length) {
+    for (counter = 0; counter < signal_length; ++counter) {
+      if (target[counter]==0) {
+        return true;
+      }
+      int signal_code = signal[counter+1] * RESOLUTION / 10;
+      if (abs(signal_code - target[counter]) > 
+        (signal_code * FUZZINESS / 100)) {
+          signal++;
+          signal_length--;
+          break;
+      }
     }
   }
   return false;
