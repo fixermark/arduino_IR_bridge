@@ -1,3 +1,4 @@
+// Authored by Mark Tomczak (iam@fixermark.com).
 // Listens for signals.
 // Adapted from the tutorial at http://www.ladyada.net/learn/sensors/ir.html
 

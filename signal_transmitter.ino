@@ -1,3 +1,4 @@
+// Authored by Mark Tomczak (iam@fixermark.com).
 // Modified from Nikon camera demonstration code.
 // See the full tutorial at http://www.ladyada.net/learn/sensors/ir.html
 // this code is public domain, please enjoy!

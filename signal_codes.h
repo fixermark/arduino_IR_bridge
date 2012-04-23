@@ -1,3 +1,7 @@
+// Authored by Mark Tomczak (iam@fixermark.com).
+// Signal codes for various TV remote commands.
+
+
 // TV power signal
 int TVPowerToggle[] = {
 // ON, OFF (in 10's of microseconds)
