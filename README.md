@@ -10,7 +10,7 @@ Based heavily on Limor's tutorial
 
 This code is intended for use with an Arduino controller, PNA4602 IR detector
 (or its friend, the compatible GP1UX311QS
-[http://www.adafruit.com/products/157]), and a 940nm LED (easy to pick up in
+[ http://www.adafruit.com/products/157 ]), and a 940nm LED (easy to pick up in
 many places; mine happen to come from Radio Shack). Wire the IR detector
 to pin 2 and the IR LED to pin 13; you can then install this program on
 your Arduino.
