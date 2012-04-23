@@ -4,6 +4,13 @@
 
 #include "signal_codes.h"
 
+#define MODE_NONE_SELECTED -1
+#define MODE_XBOX 0
+#define MODE_CABLE 1
+#define MODE_COMPUTER 2
+
+int g_current_mode = MODE_CABLE;
+
 int IRledPin =  13;    // LED connected to digital pin 13
 
 void setup()   {                
@@ -15,38 +22,53 @@ void setup()   {
  
 void loop()                     
 {
+  int selected_mode = MODE_NONE_SELECTED; 
   Serial.println("Listening for IR signal");
   uint16_t test[200];
   int count;
   count = listenForIR(test, 200);
-  if (CompareSignals(test, count, MicrosoftOK)) {
+  if (CompareSignals(test, count, ApexOK)) {
     Serial.println("OK detected");
+    selected_mode = MODE_CABLE;
   }
-  if (CompareSignals(test, count, MicrosoftLeftArrow)) {
+  if (CompareSignals(test, count, ApexLeftArrow)) {
     Serial.println("Left detected");
-    selectPreviousInput();
+    selected_mode = MODE_XBOX;
   }
-  if (CompareSignals(test, count, MicrosoftRightArrow)) {
+  if (CompareSignals(test, count, ApexRightArrow)) {
     Serial.println("Right detected");
-    selectNextInput();
+    selected_mode = MODE_COMPUTER;
+  }
+  if (selected_mode != MODE_NONE_SELECTED) {
+    if (g_current_mode < selected_mode) {
+      selectNextInput(selected_mode - g_current_mode);
+    }
+    if (g_current_mode > selected_mode) {
+      selectPreviousInput(g_current_mode - selected_mode);
+    }
+    g_current_mode = selected_mode;
   }
 }
 
-void selectPreviousInput() {
+void selectPreviousInput(int steps) {
   delay(500);
   SendCode(TVInput);
-  delay(250);  // wait .5 seconds
-  SendCode(TVUpArrow);
   delay(250);
+  for (int i=0; i < steps; i++) {
+    SendCode(TVUpArrow);
+    delay(250);
+  }
   SendCode(TVEnter);
 }
 
-void selectNextInput() {
+void selectNextInput(int steps) {
   delay(500);
   SendCode(TVInput);
-  delay(250);  // wait .5 seconds
-  SendCode(TVDownArrow);
   delay(250);
+  for (int i=0; i < steps; i++) {
+    SendCode(TVDownArrow);
+    delay(250);
+  }
   SendCode(TVEnter);
 }
  
